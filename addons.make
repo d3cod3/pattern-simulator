@@ -1,3 +1,2 @@
 ofxDatGui
-ofxOpenCv
 ofxXmlSettings

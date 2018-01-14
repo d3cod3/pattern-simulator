@@ -3,7 +3,6 @@
 #include "ofMain.h"
 
 #include "ofxDatGui.h"
-#include "ofxOpenCv.h"
 #include "ofxXmlSettings.h"
 
 #include "ofxFolding.h"
@@ -33,11 +32,17 @@ public:
     void loadMappingPoints();
     void saveMappingPoints();
     void toggleDrawGrid();
+
+    void gaussian_elimination(float *input, int n);
+    void findHomography(ofPoint src[4], ofPoint dst[4], float homography[16]);
     void applyHomography();
     void applyGridMesh(int xCalib, int yCalib, int w, int h);
 
     // EXPORT
     void exportImage();
+
+    // FULLSCREEN
+    void toggleFullscreen();
 
     // KEYBOARD ////////////////////////
     void keyReleased(int key);
@@ -65,18 +70,21 @@ public:
     // FOLDING PATTERNS
     ofFbo                   foldingFbo;
     ofFbo                   drawingFbo;
-    ofShader				shaderColorCorrection;
+    ofShader				        shaderColorCorrection;
     ofPixels                foldingPixels;
     ofImage                 tempFrame;
     ofImage                 exportImg;
     matrixAreas             finalTextureMapping;
     int                     projectionScreenW;
     int                     projectionScreenH;
+    int                     projectionPosX;
+    int                     projectionPosY;
     int                     res;
     int                     gridRes;
     int                     realRes;
     bool                    saveMappingSettings;
     bool                    drawGrid;
+    bool                    mFullscreen;
 
     FMHarmonicSquareWave    *waveX;
     SineWave                *fmod;
